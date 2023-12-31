@@ -7,7 +7,7 @@ struct SchemaScraper {
     val: Value,
 }
 
-pub fn new_schema_scraper(html: String) -> Result<impl RecipeScraper, serde_json::Error> {
+pub fn new_schema_scraper(html: &str) -> Result<impl RecipeScraper, serde_json::Error> {
     let sel = Selector::parse(r#"script[type="application/ld+json"]"#).unwrap();
     let document = Html::parse_document(&html);
 
