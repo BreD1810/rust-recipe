@@ -2,7 +2,7 @@ use crate::{nutrition_information::NutritionInformation, restricted_diet::Restri
 use std::time::Duration;
 
 /// RecipeScraper provides method to retrieve information from a recipe.
-/// See https://schema.org/Recipe
+/// See <https://schema.org/Recipe>
 pub trait RecipeScraper {
     /// author is the author of the recipe.
     fn author(&self) -> Option<String>;

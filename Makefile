@@ -1,13 +1,16 @@
-.PHONY: fmt lint build test
+.PHONY: fmt lint build test doc
 
 fmt:
 	cargo fmt
 
 lint:
-	cargo clippy
+	cargo clippy --all-features
 
 build:
-	cargo build
+	cargo build --all-features
 
 test:
-	cargo test
+	cargo test --all-features
+
+doc:
+	cargo doc --all-features --open

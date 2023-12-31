@@ -1,5 +1,5 @@
 /// RestrictedDiet
-/// See https://schema.org/RestrictedDiet
+/// See <https://schema.org/RestrictedDiet>
 pub enum RestrictedDiet {
     UnknownDiet,
     DiabeticDiet,

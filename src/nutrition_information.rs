@@ -1,5 +1,5 @@
 /// Nutritional Information
-/// See https://schema.org/NutritionInformation
+/// See <https://schema.org/NutritionInformation>
 pub struct NutritionInformation {
     /// The number of calories.
     calories: f32,
