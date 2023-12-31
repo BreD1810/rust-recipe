@@ -1,3 +1,4 @@
+#![doc = include_str!("../README.md")]
 pub use nutrition_information::NutritionInformation;
 pub use recipe_scraper::RecipeScraper;
 pub use restricted_diet::RestrictedDiet;
