@@ -7,7 +7,7 @@ pub mod nutrition_information;
 pub mod recipe_scraper;
 pub mod restricted_diet;
 
-pub fn scrape_recipe(url: String) -> Result<impl RecipeScraper, Box<dyn Error>> {
+pub fn scrape_recipe(url: &str) -> Result<impl RecipeScraper, Box<dyn Error>> {
     // TODO: Figure out custom scrapers here
     let res = reqwest::blocking::get(url)?.text()?;
     let scraper = default_scraper::new_schema_scraper(res)?;
