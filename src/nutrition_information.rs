@@ -2,38 +2,38 @@
 /// See <https://schema.org/NutritionInformation>
 pub struct NutritionInformation {
     /// The number of calories.
-    calories: f32,
+    pub calories: f32,
 
     /// The number of grams of carbohydrates.
-    carbohydrate_grams: f32,
+    pub carbohydrate_grams: f32,
 
     /// The number of milligrams of cholesterol.
-    cholesterol_milligrams: f32,
+    pub cholesterol_milligrams: f32,
 
     /// The number of grams of fat.
-    fat_grams: f32,
+    pub fat_grams: f32,
 
     /// The number of grams of fiber.
-    fiber_grams: f32,
+    pub fiber_grams: f32,
 
     /// The number of grams of protein.
-    protein_grams: f32,
+    pub protein_grams: f32,
 
     /// The number of grams of saturated fat.
-    saturated_fat_grams: f32,
+    pub saturated_fat_grams: f32,
 
     /// The serving size, in terms of the number of volume or mass.
-    serving_size: String,
+    pub serving_size: String,
 
     /// The number of milligrams of sodium.
-    sodium_milligrams: f32,
+    pub sodium_milligrams: f32,
 
     /// The number of grams of sugar.
-    sugar_grams: f32,
+    pub sugar_grams: f32,
 
     /// The number of grams of trans fat.
-    trans_fat_grams: f32,
+    pub trans_fat_grams: f32,
 
     /// The number of grams of unsaturated fat.
-    unsaturated_fat_grams: f32,
+    pub unsaturated_fat_grams: f32,
 }
