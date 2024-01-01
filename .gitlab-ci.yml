@@ -1,0 +1,27 @@
+stages:
+  - build
+  - test
+
+rust-latest:
+  stage: build
+  image: rust:latest
+  script:
+    - cargo build --verbose
+
+rust-nightly:
+  stage: build
+  image: rustlang/rust:nightly
+  script:
+    - cargo build --all-features --verbose
+
+test-latest:
+  stage: test
+  image: rust:latest
+  script:
+    - cargo test --all-features --verbose
+
+test-nightly:
+  stage: test
+  image: rustlang/rust:nightly
+  script:
+    - cargo test --all-features --verbose
