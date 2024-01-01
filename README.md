@@ -1,9 +1,10 @@
 # rust-recipe
 
-rust-recipe is a Rust crate that scrapes recipes from webites.
+rust-recipe is a Rust crate that scrapes recipes from websites.
 It is inspired by the Golang library "[go-recipe](https://github.com/kkyr/go-recipe)".
 
 ## Adding to your Project
+
 ```shell
 cargo add rust-recipe
 ```
@@ -13,10 +14,11 @@ Optionally, you can use the `blocking` or `async` features.
 ## Usage
 
 ### Custom Scraping
+
 By default, the crate provides the `scrape_recipe` method, which takes in HTML you have scraped from the website and attempts to parse it.
 The `RecipeInformationProvider` trait provides the methods available to fetch information once scraped.
 
-```{.rust .ignore}
+```rust ignore
 use rust_recipe::scrape_recipe;
 use std::error::Error;
 
@@ -40,7 +42,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
 Custom scrapers can also be used by implementing the `RecipeScraper` trait.
 
-```{.rust .ignore}
+```rust ignore
 use rust_recipe::{custom_scrape_recipe, RecipeInformationProvider, RecipeScraper};
 use std::{collections::HashMap, error::Error};
 
@@ -103,10 +105,11 @@ impl RecipeInformationProvider for CustomRecipeInfoProvider {
 }
 ```
 
-### Async 
+### Async
+
 The `async` feature uses the `reqwest` to make an async call to the URL provided:
 
-```{.rust .ignore}
+```rust ignore
 ``use rust_recipe::scrape_recipe_from_url;
 
 #[tokio::main]
@@ -126,9 +129,10 @@ async fn main() {
 ```
 
 ### Blocking
+
 The `blocking` feature uses the `ureq` crate to make a blocking call to the URL provided.
 
-```{.rust .ignore}
+```rust ignore
 use rust_recipe::{scrape_recipe_from_url_blocking, RecipeScraper};
 
 fn main() {
