@@ -1,6 +1,8 @@
 # rust-recipe
 
-![CI Status](https://github.com/BreD1810/rust-recipe/actions/workflows/ci.yml/badge.svg?branch=main)
+[![crates.io](https://img.shields.io/crates/v/rust-recipe.svg)](https://crates.io/crates/rust-recipe)
+[![Documentation](https://docs.rs/rust-recipe/badge.svg)](https://docs.rs/rust-recipe)
+[![CI Status](https://github.com/BreD1810/rust-recipe/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/BreD1810/rust-recipe/actions?query=branch%3Amain)
 
 rust-recipe is a Rust crate that scrapes recipes from websites.
 It is inspired by the Golang library "[go-recipe](https://github.com/kkyr/go-recipe)".
