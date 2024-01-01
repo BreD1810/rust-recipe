@@ -1,31 +1,57 @@
 #![doc = include_str!("../README.md")]
+#[doc(inline)]
 pub use nutrition_information::NutritionInformation;
-pub use recipe_scraper::RecipeScraper;
+#[doc(inline)]
+pub use recipe_information_provider::RecipeInformationProvider;
+#[doc(inline)]
 pub use restricted_diet::RestrictedDiet;
-
+use schema_scraper::SchemaScraper;
 use std::error::Error;
-mod default_scraper;
-pub mod nutrition_information;
-pub mod recipe_scraper;
-pub mod restricted_diet;
 
-/// scrape_recipe takes some HTML and attempts to parse a respice to a RecipeScraper
-pub fn scrape_recipe(html: &str) -> Result<impl RecipeScraper, Box<dyn Error>> {
-    // TODO: Figure out custom scrapers here
-    let scraper = default_scraper::new_schema_scraper(html)?;
-    Ok(scraper)
+pub mod nutrition_information;
+pub mod recipe_information_provider;
+pub mod restricted_diet;
+mod schema_scraper;
+
+/// Provides methods to scrape HTML for recipe information.
+pub trait RecipeScraper {
+    fn scrape_recipe(
+        self,
+        html: &str,
+    ) -> Result<Box<dyn RecipeInformationProvider>, serde_json::Error>;
 }
 
-/// scrape_recipe_from_url_blocking uses ureq to scrape a recipe from a URL
+/// Takes some HTML and attempts to parse a recipe to a RecipeInformationProvider
+pub fn scrape_recipe(html: &str) -> Result<Box<dyn RecipeInformationProvider>, Box<dyn Error>> {
+    let scraper = SchemaScraper {};
+    custom_scrape_recipe(html, scraper)
+}
+
+/// Uses a custom scraper to retrieve a recipe
+/// # Arguments
+/// - `html` - The HTML of the recipe page.
+/// - `scraper` - The custom scraper to use.
+pub fn custom_scrape_recipe(
+    html: &str,
+    scraper: impl RecipeScraper,
+) -> Result<Box<dyn RecipeInformationProvider>, Box<dyn Error>> {
+    Ok(scraper.scrape_recipe(html)?)
+}
+
+/// Uses ureq to scrape a recipe from a URL
 #[cfg(feature = "blocking")]
-pub fn scrape_recipe_from_url_blocking(url: &str) -> Result<impl RecipeScraper, Box<dyn Error>> {
+pub fn scrape_recipe_from_url_blocking(
+    url: &str,
+) -> Result<Box<dyn RecipeInformationProvider>, Box<dyn Error>> {
     let res = ureq::get(url).call()?.into_string()?;
     scrape_recipe(&res)
 }
 
-/// scrape_recipe_from_url uses reqwest to scrape a recipe from a URL
+/// Uses reqwest to scrape a recipe from a URL
 #[cfg(feature = "async")]
-pub async fn scrape_recipe_from_url(url: &str) -> Result<impl RecipeScraper, Box<dyn Error>> {
+pub async fn scrape_recipe_from_url(
+    url: &str,
+) -> Result<Box<dyn RecipeInformationProvider>, Box<dyn Error>> {
     let res = reqwest::get(url).await?.text().await?;
     scrape_recipe(&res)
 }
