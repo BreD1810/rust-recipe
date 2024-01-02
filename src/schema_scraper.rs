@@ -11,7 +11,7 @@ pub struct SchemaScraperInfoProvider {
 
 impl RecipeScraper for SchemaScraper {
     fn scrape_recipe(
-        self,
+        &self,
         html: &str,
     ) -> Result<Box<dyn RecipeInformationProvider>, serde_json::Error> {
         let sel = Selector::parse(r#"script[type="application/ld+json"]"#).unwrap();

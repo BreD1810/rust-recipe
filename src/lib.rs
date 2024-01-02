@@ -16,7 +16,7 @@ mod schema_scraper;
 /// Provides methods to scrape HTML for recipe information.
 pub trait RecipeScraper {
     fn scrape_recipe(
-        self,
+        &self,
         html: &str,
     ) -> Result<Box<dyn RecipeInformationProvider>, serde_json::Error>;
 }
@@ -24,7 +24,7 @@ pub trait RecipeScraper {
 /// Takes some HTML and attempts to parse a recipe to a RecipeInformationProvider
 pub fn scrape_recipe(html: &str) -> Result<Box<dyn RecipeInformationProvider>, Box<dyn Error>> {
     let scraper = SchemaScraper {};
-    custom_scrape_recipe(html, scraper)
+    custom_scrape_recipe(html, &scraper)
 }
 
 /// Uses a custom scraper to retrieve a recipe
@@ -33,7 +33,7 @@ pub fn scrape_recipe(html: &str) -> Result<Box<dyn RecipeInformationProvider>, B
 /// - `scraper` - The custom scraper to use.
 pub fn custom_scrape_recipe(
     html: &str,
-    scraper: impl RecipeScraper,
+    scraper: &impl RecipeScraper,
 ) -> Result<Box<dyn RecipeInformationProvider>, Box<dyn Error>> {
     Ok(scraper.scrape_recipe(html)?)
 }
@@ -51,7 +51,7 @@ pub fn scrape_recipe_from_url_blocking(
 #[cfg(feature = "blocking")]
 pub fn custom_scrape_recipe_from_url_blocking(
     url: &str,
-    scraper: impl RecipeScraper,
+    scraper: &impl RecipeScraper,
 ) -> Result<Box<dyn RecipeInformationProvider>, Box<dyn Error>> {
     let res = ureq::get(url).call()?.into_string()?;
     custom_scrape_recipe(&res, scraper)
@@ -70,7 +70,7 @@ pub async fn scrape_recipe_from_url(
 #[cfg(feature = "async")]
 pub async fn custom_scrape_recipe_from_url(
     url: &str,
-    scraper: impl RecipeScraper,
+    scraper: &impl RecipeScraper,
 ) -> Result<Box<dyn RecipeInformationProvider>, Box<dyn Error>> {
     let res = reqwest::get(url).await?.text().await?;
     custom_scrape_recipe(&res, scraper)

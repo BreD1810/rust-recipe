@@ -970,7 +970,7 @@ dependencies = [
 
 [[package]]
 name = "rust-recipe"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "iso8601-duration",
  "once_cell",
