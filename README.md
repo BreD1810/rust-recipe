@@ -114,7 +114,7 @@ impl RecipeInformationProvider for CustomRecipeInfoProvider {
 The `async` feature uses the `reqwest` to make an async call to the URL provided:
 
 ```rust ignore
-``use rust_recipe::scrape_recipe_from_url;
+use rust_recipe::scrape_recipe_from_url;
 
 #[tokio::main]
 async fn main() {
