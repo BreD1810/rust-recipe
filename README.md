@@ -17,6 +17,11 @@ Optionally, you can use the `blocking` or `async` features.
 
 ## Usage
 
+The example programs, e.g. `./examples/name.rs`, can be run with:
+```shell
+cargo run --all-featuers --example <name>
+```
+
 ### Custom Scraping
 
 By default, the crate provides the `scrape_recipe` method, which takes in HTML you have scraped from the website and attempts to parse it.
