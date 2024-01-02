@@ -47,6 +47,16 @@ pub fn scrape_recipe_from_url_blocking(
     scrape_recipe(&res)
 }
 
+/// Uses ureq to scrape a recipe from a URL using a custom scraper
+#[cfg(feature = "blocking")]
+pub fn custom_scrape_recipe_from_url_blocking(
+    url: &str,
+    scraper: impl RecipeScraper,
+) -> Result<Box<dyn RecipeInformationProvider>, Box<dyn Error>> {
+    let res = ureq::get(url).call()?.into_string()?;
+    custom_scrape_recipe(&res, scraper)
+}
+
 /// Uses reqwest to scrape a recipe from a URL
 #[cfg(feature = "async")]
 pub async fn scrape_recipe_from_url(
@@ -54,4 +64,14 @@ pub async fn scrape_recipe_from_url(
 ) -> Result<Box<dyn RecipeInformationProvider>, Box<dyn Error>> {
     let res = reqwest::get(url).await?.text().await?;
     scrape_recipe(&res)
+}
+
+/// Uses reqwest to scrape a recipe from a URL
+#[cfg(feature = "async")]
+pub async fn custom_scrape_recipe_from_url(
+    url: &str,
+    scraper: impl RecipeScraper,
+) -> Result<Box<dyn RecipeInformationProvider>, Box<dyn Error>> {
+    let res = reqwest::get(url).await?.text().await?;
+    custom_scrape_recipe(&res, scraper)
 }
